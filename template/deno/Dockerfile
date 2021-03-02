@@ -49,7 +49,7 @@ WORKDIR /home/app/
 
 ENV cgi_headers="true"
 # ENV fprocess="node index.js"
-ENV fprocess="deno index.js"
+ENV fprocess="deno index.js --allow-net"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:3000"
 
