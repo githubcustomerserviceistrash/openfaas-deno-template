@@ -19,7 +19,7 @@ app.use(async (ctx, next) => {
 
 // Hello World!
 app.use((ctx) => {
-  ctx.response.body = "Hello World!";
+  ctx.response.body = "Hello World2!";
 });
 
 await app.listen({ port: 3000 });
