@@ -4,14 +4,14 @@ const fnMaps: { [key: string]: any } = {
   ...demo,
 };
 
-interface FnInput {
+export interface FnInput {
   /** function path, concat with `/`. */
   path: string;
   /** function params. */
   params: Object;
 }
 
-interface FnOutput {
+export interface FnOutput {
   /** error message if has. */
   err: string;
   /** function result */
@@ -22,12 +22,10 @@ function has(key: string, obj: Object) {
   return key in obj;
 }
 
-export default function fnHandler(
-  { path = "", params = {} }: FnInput,
-): FnOutput {
+export default function fnHandler(input: FnInput): FnOutput {
   let err : string = "";
   let res : null = null;
-  const fnPath = path.slice(1);
+  const { path: fnPath, params } = input;
   if (has(fnPath, fnMaps)) {
     const fn = fnMaps[fnPath];
     try {
