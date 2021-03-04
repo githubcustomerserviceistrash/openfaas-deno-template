@@ -11,15 +11,18 @@ RUN chmod +x /usr/bin/fwatchdog
 
 RUN chmod 777 /tmp
 
-# DENO part
 USER deno
-WORKDIR /app
+WORKDIR /home/app
+COPY deps.ts ./
 COPY mod.ts ./
 
-WORKDIR /app
+USER root
+RUN mkdir /home/app/function
+USER deno
+WORKDIR /home/app/function
 COPY function/ ./
 
-WORKDIR /app
+WORKDIR /home/app
 
 ENV cgi_headers="true"
 ENV fprocess="deno run --allow-net mod.ts"
