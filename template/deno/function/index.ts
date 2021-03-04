@@ -1,0 +1,42 @@
+// Create your own function ts files and import them here.
+import demo from "./demo.ts";
+const fnMaps: { [key: string]: any } = {
+  ...demo,
+};
+
+interface FnInput {
+  /** function path, concat with `/`. */
+  path: string;
+  /** function params. */
+  params: Object;
+}
+
+interface FnOutput {
+  /** error message if has. */
+  err: string;
+  /** function result */
+  res: any;
+}
+
+function has(key: string, obj: Object) {
+  return key in obj;
+}
+
+export default function fnHandler(
+  { path = "", params = {} }: FnInput,
+): FnOutput {
+  let err : string = "";
+  let res : null = null;
+  const fnPath = path.slice(1);
+  if (has(fnPath, fnMaps)) {
+    const fn = fnMaps[fnPath];
+    try {
+      res = fn(params);
+    } catch(error) {
+      err = error;
+    }
+  } else {
+    err = "Function not found.";
+  }
+  return { err, res };
+}

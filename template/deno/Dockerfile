@@ -14,11 +14,15 @@ RUN chmod 777 /tmp
 # DENO part
 USER deno
 WORKDIR /app
-# ADD . /app
-COPY index.ts ./
+COPY mod.ts ./
+
+WORKDIR /app
+COPY function/ ./
+
+WORKDIR /app
 
 ENV cgi_headers="true"
-ENV fprocess="deno run --allow-net index.ts"
+ENV fprocess="deno run --allow-net mod.ts"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:3000"
 
