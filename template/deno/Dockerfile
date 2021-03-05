@@ -25,7 +25,7 @@ COPY function/ ./
 WORKDIR /home/app
 
 ENV cgi_headers="true"
-ENV fprocess="deno run --allow-net mod.ts"
+ENV fprocess="deno run --allow-net --allow-read mod.ts"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:3000"
 

@@ -40,25 +40,11 @@ export default {
 
 ```
 
-### 3. import the ts file to `your_function_name/index.ts`
-
-```typescript
-// index.ts
-
-import demo from "./demo.ts";
-// import your ts module here
-import your_function from './your_function.ts';
-const fnMaps: { [key: string]: any } = {
-  ...demo,
-  ...your_function, // add the module here
-};
-```
-
-### 4. build and deploy your function
+### 3. build and deploy your function
 
 follow https://github.com/openfaas/workshop to build and deploy your function
 
-### 5. test the function by Http reaquest or OpenFaaS-ui
+### 4. test the function by Http reaquest or OpenFaaS-ui
 
 1. request
     - method: `POST`

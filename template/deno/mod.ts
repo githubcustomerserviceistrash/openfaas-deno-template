@@ -28,10 +28,11 @@ app.use(async (ctx) => {
 
   // call the function.
   const { err, res: fnRes }: FnOutput = fnHandler(input);
+  console.log('res', fnRes);
   // return the result.
   ctx.response.body = {
-    code: err ? (err === 404 ? err : 401) : 200,
-    data: err ? (err === 404 ? "Function not found." : err) : fnRes,
+    code: err ? 401 : 200,
+    data: err ? err : fnRes,
   };
 });
 

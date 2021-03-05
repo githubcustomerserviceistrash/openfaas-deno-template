@@ -1,8 +1,20 @@
-// Create your own function ts files and import them here.
-import demo from "./demo.ts";
-const fnMaps: { [key: string]: any } = {
-  ...demo,
-};
+// import all function modules into fnMaps
+let fnMaps: { [key: string]: any } = {};
+const excludes = ["index.ts"];
+for (const fileStat of Deno.readDirSync("./function")) {
+  if (fileStat.isFile && !excludes.includes(fileStat.name)) {
+    const read = async () => {
+      const module = await import(`./${fileStat.name}`);
+      if (module?.default) {
+        fnMaps = {
+          ...fnMaps,
+          ...module.default,
+        };
+      }
+    };
+    await read();
+  }
+}
 
 export interface FnInput {
   /** function path, concat with `/`. */
@@ -13,7 +25,7 @@ export interface FnInput {
 
 export interface FnOutput {
   /** error message if has. */
-  err: string | number;
+  err: string;
   /** function result */
   res: any;
 }
@@ -23,18 +35,18 @@ function has(key: string, obj: Object) {
 }
 
 export default function fnHandler(input: FnInput): FnOutput {
-  let err : string | number = "";
-  let res : null = null;
+  let err: string = "";
+  let res: null = null;
   const { path: fnPath, params } = input;
   if (has(fnPath, fnMaps)) {
     const fn = fnMaps[fnPath];
     try {
       res = fn(params);
-    } catch(error) {
+    } catch (error) {
       err = error;
     }
   } else {
-    err = 404;
+    err = "Function not found.";
   }
   return { err, res };
 }
