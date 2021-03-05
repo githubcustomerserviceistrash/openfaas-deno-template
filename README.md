@@ -65,20 +65,20 @@ follow https://github.com/openfaas/workshop to build and deploy your function
     - params: through `request body` in `JSON` format
       ```json
       {
-        // the function path
         "path": "demo/add",
-        // the function params
         "params": {
             "num1": 1,
             "num2": 2
         }
       }
       ```
+      - path: the function path
+      - params: the function params object
 2. response
     ```json
     {
-      "code": 200, // 200, 401, 403
-      "data": 3 // can be any type
+      "code": 200,
+      "data": 3
     }
     ```
     |code|description|data|
