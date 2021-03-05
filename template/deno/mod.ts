@@ -30,8 +30,8 @@ app.use(async (ctx) => {
   const { err, res: fnRes }: FnOutput = fnHandler(input);
   // return the result.
   ctx.response.body = {
-    code: err ? 401 : 200,
-    data: err ? err : fnRes,
+    code: err ? (err === 404 ? err : 401) : 200,
+    data: err ? (err === 404 ? "Function not found." : err) : fnRes,
   };
 });
 

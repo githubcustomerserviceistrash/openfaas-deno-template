@@ -13,7 +13,7 @@ export interface FnInput {
 
 export interface FnOutput {
   /** error message if has. */
-  err: string;
+  err: string | number;
   /** function result */
   res: any;
 }
@@ -23,7 +23,7 @@ function has(key: string, obj: Object) {
 }
 
 export default function fnHandler(input: FnInput): FnOutput {
-  let err : string = "";
+  let err : string | number = "";
   let res : null = null;
   const { path: fnPath, params } = input;
   if (has(fnPath, fnMaps)) {
@@ -34,7 +34,7 @@ export default function fnHandler(input: FnInput): FnOutput {
       err = error;
     }
   } else {
-    err = "Function not found.";
+    err = 404;
   }
   return { err, res };
 }
