@@ -1,7 +1,7 @@
 # basically following https://hub.docker.com/r/hayd/deno
 
 FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.8.4 as watchdog
-FROM --platform=${TARGETPLATFORM:-linux/amd64} hayd/deno:1.5.2 as ship
+FROM --platform=${TARGETPLATFORM:-linux/amd64} denoland/deno as ship
 
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
